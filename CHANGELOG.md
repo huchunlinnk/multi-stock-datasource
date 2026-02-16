@@ -5,6 +5,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.1.0] - 2026-02-16
+
+### Added
+- Non-trading hours cache fallback mechanism
+- Integration tests for all 7 data sources
+- Cross-source data consistency validation
+- Redis cache fallback for EastMoney and Sina APIs
+- Full integration test with 100% match rate validation
+
+### Changed
+- Improved test coverage for non-trading hours scenarios
+- Enhanced cache key compatibility across different Redis formats
+
 ## [1.0.0] - 2024-02-16
 
 ### Added

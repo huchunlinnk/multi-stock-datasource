@@ -8,6 +8,7 @@
 - 统一的数据模型 (StockQuote)
 - 自动数据质量评估
 - 多源数据智能合并
+- 轮询缓存服务（防限流）
 - 完善的类型提示和文档
 
 快速开始:
@@ -27,11 +28,18 @@
     merger = DataMerger()
     merged = merger.merge([tencent_quotes, eastmoney_quotes])
 
-GitHub: https://github.com/your-repo/stock-data-normalizer
+    # 轮询缓存服务（防限流）
+    from stock_data_normalizer import RotatingCacheService, CacheBackend
+
+    service = RotatingCacheService()
+    service.register_fetcher(DataSource.TENCENT, my_tencent_fetcher)
+    quotes, source = await service.fetch(limit=1000)
+
+GitHub: https://github.com/huchunlinnk/multi-stock-datasource
 License: MIT
 """
 
-__version__ = "1.0.0"
+__version__ = "1.2.0"
 __author__ = "AI Stocker Team"
 __license__ = "MIT"
 
@@ -72,6 +80,13 @@ from .services import (
     merge_quotes,
 )
 
+# 缓存服务
+from .cache_service import (
+    RotatingCacheService,
+    CacheBackend,
+    MemoryCacheBackend,
+)
+
 
 __all__ = [
     # 版本信息
@@ -105,4 +120,8 @@ __all__ = [
     "TushareNormalizer",
     # 数据合并
     "DataMerger",
+    # 缓存服务
+    "RotatingCacheService",
+    "CacheBackend",
+    "MemoryCacheBackend",
 ]
